@@ -5,18 +5,15 @@ RewriteEngine On
 
 # Prevent access to sensitive files
 <Files ".htaccess">
-    Order Allow,Deny
-    Deny from all
+    Require all denied
 </Files>
 
 <Files "*.md">
-    Order Allow,Deny
-    Deny from all
+    Require all denied
 </Files>
 
 <Files ".git*">
-    Order Allow,Deny
-    Deny from all
+    Require all denied
 </Files>
 
 # Prevent directory browsing
@@ -39,8 +36,7 @@ Options -Indexes
 
 # Block access to common exploit files
 <FilesMatch "(^\.|\.(env|log|ini|conf|bak|backup|old|tmp|temp|swp|cache))$">
-    Order Allow,Deny
-    Deny from all
+    Require all denied
 </FilesMatch>
 
 # Cache static assets for better performance

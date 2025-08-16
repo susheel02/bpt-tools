@@ -1,69 +1,21 @@
 <?php
-require_once 'includes/calculations.php';
 require_once 'includes/config.php';
-
-// Handle AJAX requests
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-    // Clear any output buffers to prevent HTML from interfering with JSON
-    while (ob_get_level()) {
-        ob_end_clean();
-    }
-    
-    header('Content-Type: application/json');
-    
-    if ($_POST['action'] === 'calculate') {
-        try {
-            $validation = DepthOfFieldCalculator::validateInputs($_POST);
-            
-            if (!$validation['valid']) {
-                echo json_encode(['error' => implode(', ', $validation['errors'])]);
-                exit;
-            }
-            
-            $focal_length = floatval($_POST['focal_length']);
-            $aperture = floatval($_POST['aperture']);
-            $distance = floatval($_POST['distance']);
-            $coc = floatval($_POST['coc']);
-            $unit_system = $_POST['unit_system'] ?? 'metric';
-            
-            $dof_data = DepthOfFieldCalculator::calculateDOF($focal_length, $aperture, $distance, $coc);
-            $converted_data = DepthOfFieldCalculator::convertUnits($dof_data, $unit_system);
-            
-            // Add COC to the response (always in mm)
-            $converted_data['coc'] = $coc;
-            
-            echo json_encode(['success' => true, 'data' => $converted_data]);
-            exit;
-            
-        } catch (Exception $e) {
-            echo json_encode(['error' => 'Calculation error: ' . $e->getMessage()]);
-            exit;
-        } catch (Error $e) {
-            echo json_encode(['error' => 'System error: ' . $e->getMessage()]);
-            exit;
-        }
-    }
-}
 ?>
 <?php
 // For calculator sub-page, we need custom variables
 $page_title = "Depth of Field Calculator";
 $page_description = "Professional depth of field calculator for photographers. Calculate DOF for any lens, sensor, and distance combination.";
-$css_path = "assets/css/style.css?v=0.0.2";
+$css_path = "assets/css/style.css?v=0.0.3";
 $base_url = "../";
 $show_back_button = true;
+$manifest_path = "manifest.json";
 
-// Since we need to output before including header for AJAX, we'll handle header manually
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    include '../shared/header.php';
-} else {
-    // For AJAX requests, we already returned above
-}
+// Include header for page display
+include '../shared/header.php';
 ?>
 
-<?php if ($_SERVER['REQUEST_METHOD'] !== 'POST'): ?>
     <!-- Dark Mode Toggle -->
-    <button id="theme-toggle" class="theme-toggle" title="Toggle dark/light mode">
+    <button id="theme-toggle" class="theme-toggle" title="Toggle dark/light mode" aria-label="Toggle dark mode" aria-pressed="false">
         🌙
     </button>
 
@@ -74,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
                     <!-- Sensor Selection -->
                     <div class="form-group">
                         <label for="sensor-preset">Camera Sensor</label>
-                        <select id="sensor-preset" name="sensor_preset" required>
+                        <select id="sensor-preset" name="sensor_preset" required aria-required="true" aria-describedby="sensor-help">
                             <option value="">Select sensor type...</option>
                             <?php foreach ($sensor_presets as $key => $sensor): ?>
                                 <option value="<?= $key ?>" 
@@ -87,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
                             <?php endforeach; ?>
                             <option value="custom">Custom sensor dimensions</option>
                         </select>
+                        <small id="sensor-help" class="form-help">Select your camera's sensor size for accurate circle of confusion</small>
                     </div>
 
                     <!-- Custom Sensor Inputs -->
@@ -94,49 +47,53 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
                         <div class="custom-inputs">
                             <div>
                                 <label for="sensor-width">Width (mm)</label>
-                                <input type="number" id="sensor-width" name="sensor_width" step="0.1" min="0.1">
+                                <input type="number" id="sensor-width" name="sensor_width" step="0.1" min="0.1" aria-describedby="custom-sensor-help">
                             </div>
                             <div>
                                 <label for="sensor-height">Height (mm)</label>
-                                <input type="number" id="sensor-height" name="sensor_height" step="0.1" min="0.1">
+                                <input type="number" id="sensor-height" name="sensor_height" step="0.1" min="0.1" aria-describedby="custom-sensor-help">
                             </div>
                         </div>
+                        <small id="custom-sensor-help" class="form-help">Enter custom sensor dimensions in millimeters</small>
                     </div>
 
                     <!-- Focal Length -->
                     <div class="form-group">
                         <label for="focal-length">Focal Length (mm)</label>
-                        <input type="number" id="focal-length" name="focal_length" step="1" min="1" value="50" required>
-                        <div class="presets">
+                        <input type="number" id="focal-length" name="focal_length" step="1" min="1" value="50" required aria-required="true" aria-describedby="focal-help">
+                        <div class="presets" role="group" aria-label="Focal length presets">
                             <?php foreach ($focal_length_presets as $fl): ?>
-                                <button type="button" class="preset-btn" data-value="<?= $fl ?>"><?= $fl ?>mm</button>
+                                <button type="button" class="preset-btn" data-value="<?= $fl ?>" aria-label="Set focal length to <?= $fl ?>mm" tabindex="0"><?= $fl ?>mm</button>
                             <?php endforeach; ?>
                         </div>
+                        <small id="focal-help" class="form-help">Lens focal length in millimeters (1-2000mm)</small>
                     </div>
 
                     <!-- Aperture -->
                     <div class="form-group">
                         <label for="aperture">Aperture (f-stop)</label>
-                        <input type="number" id="aperture" name="aperture" step="0.1" min="0.1" value="8" required>
-                        <div class="presets">
+                        <input type="number" id="aperture" name="aperture" step="0.1" min="0.1" value="8" required aria-required="true" aria-describedby="aperture-help">
+                        <div class="presets" role="group" aria-label="Aperture presets">
                             <?php foreach ($aperture_presets as $ap): ?>
-                                <button type="button" class="preset-btn" data-value="<?= $ap ?>">f/<?= $ap ?></button>
+                                <button type="button" class="preset-btn" data-value="<?= $ap ?>" aria-label="Set aperture to f/<?= $ap ?>" tabindex="0">f/<?= $ap ?></button>
                             <?php endforeach; ?>
                         </div>
+                        <small id="aperture-help" class="form-help">Camera aperture setting (f/0.5 to f/64)</small>
                     </div>
 
                     <!-- Distance to Subject -->
                     <div class="form-group">
                         <label for="distance">Distance to Subject</label>
                         <div class="distance-input">
-                            <input type="number" id="distance" name="distance" step="0.1" min="0.1" value="2" required>
-                            <select id="unit-system" name="unit_system">
+                            <input type="number" id="distance" name="distance" step="0.1" min="0.1" value="2" required aria-required="true" aria-describedby="distance-help">
+                            <select id="unit-system" name="unit_system" aria-label="Unit system">
                                 <option value="metric">meters</option>
                                 <option value="imperial">feet</option>
                                 <option value="centimeters">centimeters</option>
                                 <option value="inches">inches</option>
                             </select>
                         </div>
+                        <small id="distance-help" class="form-help">Distance from camera to subject (minimum 0.1)</small>
                     </div>
                 </div>
 
@@ -144,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             </form>
 
             <!-- Results Section -->
-            <div id="results" class="results-section" style="display: none;">
+            <div id="results" class="results-section" style="display: none;" role="region" aria-label="Calculation results" aria-live="polite">
                 <h2>Depth of Field Results</h2>
                 
                 <div class="results-grid">
@@ -153,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
                         <h3>Depth of Field Results</h3>
                         
                         <!-- Visual Diagram -->
-                        <div id="dof-visualization" class="dof-visual">
+                        <div id="dof-visualization" class="dof-visual" role="img" aria-label="Depth of field visualization diagram">
                             <!-- Will be populated by JavaScript -->
                         </div>
                         
@@ -225,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         </div>
     </main>
 
+    <script src="assets/js/polyfills.js"></script>
     <script src="assets/js/app.js"></script>
 
 <?php include '../shared/footer.php'; ?>
-<?php endif; ?>

@@ -9,9 +9,18 @@
     <title><?= isset($page_title) ? $page_title : 'Photography Tools' ?> - BeyondPhotoTips.com</title>
     <meta name="description" content="<?= isset($page_description) ? $page_description : 'Professional photography calculators and tools for photographers' ?>">
     <meta name="theme-color" content="#667eea">
+    
+    <!-- Resource hints for better performance -->
+    <link rel="dns-prefetch" href="https://www.beyondphototips.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    
     <link rel="stylesheet" href="<?= isset($base_url) ? $base_url : '' ?>assets/css/tools.css?v=0.0.3">
     <?php if (isset($css_path)): ?>
     <link rel="stylesheet" href="<?= $css_path ?>">
+    <?php endif; ?>
+    <?php if (isset($manifest_path)): ?>
+    <link rel="manifest" href="<?= $manifest_path ?>">
     <?php endif; ?>
     
     <!-- Google Analytics -->
@@ -31,10 +40,13 @@
             <div class="header-content">
                 <div class="site-branding">
                     <a href="https://www.beyondphototips.com/" class="site-logo-container" rel="home">
-                        <img src="https://www.beyondphototips.com/wp-content/uploads/2020/03/BPT-Intermediate-Logo.jpg.webp" 
-                             class="default-logo" alt="Beyond Photo Tips Logo" width="300" height="78">
+                        <div class="logo-content">
+                            <img src="https://www.beyondphototips.com/wp-content/uploads/2020/03/BPT-Intermediate-Logo.jpg.webp" 
+                                 class="default-logo" alt="Beyond Photo Tips Logo" width="300" height="78" 
+                                 loading="lazy" decoding="async">
+                            <p class="site-description">Photography for the Serious Amateur</p>
+                        </div>
                     </a>
-                    <p class="site-description">Photography for the Serious Amateur</p>
                 </div>
                 <nav class="header-menu">
                     <ul class="menu">

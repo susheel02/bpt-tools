@@ -110,21 +110,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 // For calculator sub-page, we need custom variables
 $page_title = "Print Size Calculator";
 $page_description = "Calculate optimal print sizes and resolution requirements for different viewing distances and print qualities. Essential for photographers planning prints.";
-$css_path = "assets/css/print-calculator.css?v=0.0.2";
+$css_path = "assets/css/print-calculator.css?v=0.0.3";
 $base_url = "../";
 $show_back_button = true;
 
-// Since we need to output before including header for AJAX, we'll handle header manually
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    include '../shared/header.php';
-} else {
-    // For AJAX requests, we already returned above
-}
+include '../shared/header.php';
 ?>
 
-<?php if ($_SERVER['REQUEST_METHOD'] !== 'POST'): ?>
     <!-- Dark Mode Toggle -->
-    <button id="theme-toggle" class="theme-toggle" title="Toggle dark/light mode">
+    <button id="theme-toggle" class="theme-toggle" title="Toggle dark/light mode" aria-label="Toggle dark mode" aria-pressed="false">
         🌙
     </button>
 
@@ -264,7 +258,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         </div>
     </main>
 
-    <script src="assets/js/print-calculator.js?v=0.0.2"></script>
+    <script src="assets/js/print-calculator.js?v=0.0.3"></script>
 
 <?php include '../shared/footer.php'; ?>
-<?php endif; ?>

@@ -1,10 +1,15 @@
 <?php
 $page_title = "Photography Tools & Calculators";
 $page_description = "Professional photography calculators and tools for photographers. Calculate depth of field, exposure settings, and more.";
-$base_url = "/";
+$base_url = "./";
 
 include 'shared/header.php';
 ?>
+
+<!-- Dark Mode Toggle -->
+<button id="theme-toggle" class="theme-toggle" title="Toggle dark/light mode" aria-label="Toggle dark mode" aria-pressed="false">
+    🌙
+</button>
 
 <main>
     <div class="tools-container">
@@ -85,5 +90,55 @@ include 'shared/header.php';
         </div>
     </div>
 </main>
+
+    <script>
+        // Dark mode functionality for main page
+        class ThemeManager {
+            constructor() {
+                this.themeToggle = document.getElementById('theme-toggle');
+                this.initializeDarkMode();
+                this.initializeEventListeners();
+            }
+            
+            initializeEventListeners() {
+                this.themeToggle.addEventListener('click', () => {
+                    this.toggleDarkMode();
+                });
+                
+                this.themeToggle.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.toggleDarkMode();
+                    }
+                });
+            }
+            
+            initializeDarkMode() {
+                const isDarkMode = localStorage.getItem('darkMode') === 'true';
+                if (isDarkMode) {
+                    document.body.classList.add('dark-mode');
+                    this.updateThemeToggleIcon(true);
+                }
+            }
+            
+            toggleDarkMode() {
+                const isDarkMode = document.body.classList.toggle('dark-mode');
+                localStorage.setItem('darkMode', isDarkMode);
+                this.updateThemeToggleIcon(isDarkMode);
+            }
+            
+            updateThemeToggleIcon(isDarkMode) {
+                this.themeToggle.textContent = isDarkMode ? '☀️' : '🌙';
+                this.themeToggle.setAttribute('title', isDarkMode ? 'Switch to light mode' : 'Switch to dark mode');
+                this.themeToggle.setAttribute('aria-label', isDarkMode ? 'Switch to light mode' : 'Switch to dark mode');
+                this.themeToggle.setAttribute('aria-pressed', isDarkMode.toString());
+            }
+        }
+        
+        // Initialize theme manager when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new ThemeManager();
+        });
+    </script>
 
 <?php include 'shared/footer.php'; ?>

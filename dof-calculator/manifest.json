@@ -2,7 +2,7 @@
     "name": "Depth of Field Calculator",
     "short_name": "DOF Calc",
     "description": "Calculate depth of field for photography",
-    "start_url": "/",
+    "start_url": "./index.php",
     "display": "standalone",
     "background_color": "#667eea",
     "theme_color": "#667eea",

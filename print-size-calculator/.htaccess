@@ -5,18 +5,15 @@ RewriteEngine On
 
 # Prevent access to sensitive files
 <Files ".htaccess">
-    Order Allow,Deny
-    Deny from all
+    Require all denied
 </Files>
 
 <Files "*.md">
-    Order Allow,Deny
-    Deny from all
+    Require all denied
 </Files>
 
 <Files ".git*">
-    Order Allow,Deny
-    Deny from all
+    Require all denied
 </Files>
 
 # Prevent directory browsing
@@ -39,21 +36,20 @@ Options -Indexes
 
 # Block access to common exploit files
 <FilesMatch "(^\.|\.(env|log|ini|conf|bak|backup|old|tmp|temp|swp|cache))$">
-    Order Allow,Deny
-    Deny from all
+    Require all denied
 </FilesMatch>
 
-# Cache static assets for better performance
-<IfModule mod_expires.c>
-    ExpiresActive On
-    ExpiresByType text/css "access plus 1 month"
-    ExpiresByType application/javascript "access plus 1 month"
-    ExpiresByType image/png "access plus 6 months"
-    ExpiresByType image/jpg "access plus 6 months"
-    ExpiresByType image/jpeg "access plus 6 months"
-    ExpiresByType image/gif "access plus 6 months"
-    ExpiresByType image/svg+xml "access plus 6 months"
-</IfModule>
+# # Cache static assets for better performance
+# <IfModule mod_expires.c>
+#     ExpiresActive On
+#     ExpiresByType text/css "access plus 1 month"
+#     ExpiresByType application/javascript "access plus 1 month"
+#     ExpiresByType image/png "access plus 6 months"
+#     ExpiresByType image/jpg "access plus 6 months"
+#     ExpiresByType image/jpeg "access plus 6 months"
+#     ExpiresByType image/gif "access plus 6 months"
+#     ExpiresByType image/svg+xml "access plus 6 months"
+# </IfModule>
 
 # Compress static files for better performance
 <IfModule mod_deflate.c>

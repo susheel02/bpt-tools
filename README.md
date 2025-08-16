@@ -63,18 +63,30 @@ Determine optimal print sizes and resolution requirements for different scenario
 4. Get instant, precise calculations with explanations
 
 ### For Developers
-This is a PHP-based application designed for easy deployment and maintenance.
+This is a PHP-based application designed for easy deployment and maintenance using a distributed modular architecture.
 
 **Requirements:**
 - PHP 8.3+
 - Modern web browser
 - HTTPS recommended for production
 
+**Project Structure:**
+The project uses a **distributed modular structure** where each calculator tool is self-contained:
+- Each tool has its own `assets/` and `includes/` folders
+- Root-level folders contain only shared resources used by multiple tools
+- This approach ensures modularity, maintainability, and independent deployment
+
 **Local Development:**
 1. Clone the repository
 2. Set up PHP development environment (MAMP, XAMPP, etc.)
 3. Access via localhost
-4. See `CLAUDE.md` for detailed development guidelines
+4. See `CLAUDE.md` for detailed development guidelines and file organization principles
+
+**Adding New Tools:**
+1. Copy an existing tool folder structure (e.g., `dof-calculator/`)
+2. Rename and customize for your new calculator
+3. Update the main index.php to include the new tool
+4. Follow the established naming conventions and modular approach
 
 ## 🎨 Design Philosophy
 
@@ -98,6 +110,22 @@ Shared header, footer, and styling across all tools for a cohesive user experien
 - **SEO**: Optimized meta descriptions and structured navigation
 - **Accessibility**: WCAG guidelines compliance
 - **Cross-browser**: Tested on major browsers and devices
+
+## 🏗️ Architecture
+
+### Distributed Modular Design
+Each calculator tool is completely self-contained with its own:
+- **Assets folder**: Tool-specific CSS, JavaScript, and images
+- **Includes folder**: Tool-specific PHP calculations and configuration
+- **Independent deployment**: Tools can be updated without affecting others
+- **Clear boundaries**: Shared vs. tool-specific resources are well-defined
+
+### Benefits of This Structure
+- **Scalability**: Easy to add new tools without restructuring
+- **Maintainability**: Changes are scoped to specific tools
+- **Team Collaboration**: Multiple developers can work on different tools simultaneously
+- **Modularity**: Each tool can evolve independently
+- **Performance**: Only load resources needed for each specific tool
 
 ## 📊 Usage Examples
 

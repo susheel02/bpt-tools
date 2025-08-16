@@ -12,37 +12,72 @@ class DOFCalculator {
     
     initializeEventListeners() {
         // Form submission
-        this.form.addEventListener('submit', (e) => this.handleFormSubmit(e));
+        this.form.addEventListener('submit', this.handleFormSubmit.bind(this));
         
         // Sensor preset selection
-        document.getElementById('sensor-preset').addEventListener('change', (e) => {
-            this.handleSensorPresetChange(e);
-        });
+        document.getElementById('sensor-preset').addEventListener('change', this.handleSensorPresetChange.bind(this));
+        
+        // Real-time input validation
+        this.addInputValidation('focal-length', 1, 2000, 'Focal length must be between 1mm and 2000mm');
+        this.addInputValidation('aperture', 0.5, 64, 'Aperture must be between f/0.5 and f/64');
+        this.addInputValidation('distance', 0.01, 10000, 'Distance must be between 0.01 and 10000');
+        this.addInputValidation('sensor-width', 0.1, 200, 'Sensor width must be between 0.1mm and 200mm');
+        this.addInputValidation('sensor-height', 0.1, 200, 'Sensor height must be between 0.1mm and 200mm');
         
         // Preset buttons for focal length and aperture
-        document.querySelectorAll('.preset-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => this.handlePresetClick(e));
-        });
+        var presetButtons = document.querySelectorAll('.preset-btn');
+        for (var i = 0; i < presetButtons.length; i++) {
+            var btn = presetButtons[i];
+            btn.addEventListener('click', this.handlePresetClick.bind(this));
+            // Add keyboard support for preset buttons
+            btn.addEventListener('keydown', this.handlePresetKeydown.bind(this));
+        }
         
         // Unit system change
-        document.getElementById('unit-system').addEventListener('change', (e) => {
-            this.handleUnitChange(e);
-        });
+        document.getElementById('unit-system').addEventListener('change', this.handleUnitChange.bind(this));
         
         // Save calculation
-        document.getElementById('save-calculation').addEventListener('click', () => {
-            this.saveCurrentCalculation();
-        });
+        document.getElementById('save-calculation').addEventListener('click', this.saveCurrentCalculation.bind(this));
         
         // Show saved calculations
-        document.getElementById('show-saved').addEventListener('click', () => {
-            this.toggleSavedCalculations();
-        });
+        document.getElementById('show-saved').addEventListener('click', this.toggleSavedCalculations.bind(this));
         
         // Dark mode toggle
-        document.getElementById('theme-toggle').addEventListener('click', () => {
-            this.toggleDarkMode();
-        });
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', this.toggleDarkMode.bind(this));
+        
+        // Add keyboard support for theme toggle
+        themeToggle.addEventListener('keydown', this.handleThemeToggleKeydown.bind(this));
+    }
+    
+    addInputValidation(inputId, min, max, message) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
+        
+        const validateInput = () => {
+            const value = parseFloat(input.value);
+            const formGroup = input.closest('.form-group');
+            
+            // Remove existing error classes
+            formGroup.classList.remove('has-error');
+            
+            // Remove existing error messages
+            const existingError = formGroup.querySelector('.validation-error');
+            if (existingError) {
+                existingError.remove();
+            }
+            
+            if (input.value && (!isFinite(value) || value < min || value > max)) {
+                formGroup.classList.add('has-error');
+                const errorEl = document.createElement('small');
+                errorEl.className = 'validation-error';
+                errorEl.textContent = message;
+                input.parentNode.appendChild(errorEl);
+            }
+        };
+        
+        input.addEventListener('blur', validateInput);
+        input.addEventListener('input', validateInput);
     }
     
     handleFormSubmit(e) {
@@ -116,7 +151,14 @@ class DOFCalculator {
         this.setLoadingState(true);
         
         try {
-            const response = await fetch('', {
+            // Client-side validation before sending request
+            const validationError = this.validateClientSide(data);
+            if (validationError) {
+                this.showError(validationError);
+                return;
+            }
+            
+            const response = await fetch('ajax-handler.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -124,25 +166,28 @@ class DOFCalculator {
                 body: new URLSearchParams(data)
             });
             
-            console.log('Response status:', response.status);
+            // Check for HTTP errors
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
             
             // Get the raw response text first
             const responseText = await response.text();
-            console.log('Raw response:', responseText);
             
             // Try to parse as JSON
             let result;
             try {
                 result = JSON.parse(responseText);
-                console.log('Parsed JSON:', result);
             } catch (parseError) {
                 console.error('JSON parse error:', parseError);
                 console.error('Response was:', responseText);
-                throw new Error('Invalid JSON response from server');
+                throw new Error('Server returned invalid data. Please try again.');
             }
             
             if (result.error) {
                 this.showError(result.error);
+            } else if (!result.data) {
+                this.showError('Server did not return calculation data. Please try again.');
             } else {
                 this.currentCalculation = {
                     input: data,
@@ -153,46 +198,122 @@ class DOFCalculator {
                 this.createVisualization(result.data);
             }
         } catch (error) {
-            this.showError('Calculation failed. Please try again.');
+            if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                this.showError('Network error. Please check your internet connection and try again.');
+            } else if (error.message.includes('HTTP 5')) {
+                this.showError('Server error. Please try again in a moment.');
+            } else {
+                this.showError(error.message || 'Calculation failed. Please try again.');
+            }
             console.error('Calculation error:', error);
         } finally {
             this.setLoadingState(false);
         }
     }
     
-    displayResults(data) {
-        const unit = data.unit || 'm';
+    validateClientSide(data) {
+        const focal_length = parseFloat(data.focal_length);
+        const aperture = parseFloat(data.aperture);
+        const distance = parseFloat(data.distance);
+        const coc = parseFloat(data.coc);
         
-        // Calculate percentages for DOF front and behind
-        const dofFrontValue = data.dof_front === 'infinity' || !isFinite(data.dof_front) ? 0 : data.dof_front;
-        const dofBehindValue = data.dof_behind === 'infinity' || !isFinite(data.dof_behind) ? 0 : data.dof_behind;
-        const totalDofValue = data.total_dof === 'infinity' || !isFinite(data.total_dof) ? dofFrontValue : data.total_dof;
-        
-        let frontPercentage = 0;
-        let behindPercentage = 0;
-        
-        if (totalDofValue > 0 && isFinite(totalDofValue)) {
-            frontPercentage = Math.round((dofFrontValue / totalDofValue) * 100);
-            behindPercentage = data.dof_behind === 'infinity' || !isFinite(data.dof_behind) ? 100 - frontPercentage : Math.round((dofBehindValue / totalDofValue) * 100);
+        if (!focal_length || focal_length < 1 || focal_length > 2000) {
+            return 'Focal length must be between 1mm and 2000mm';
         }
         
-        // Update result displays
-        document.getElementById('near-distance').textContent = this.formatDistance(data.near_distance, unit);
-        document.getElementById('far-distance').textContent = this.formatDistance(data.far_distance, unit);
-        document.getElementById('dof-front').textContent = `${this.formatDistance(data.dof_front, unit)} (${frontPercentage}%)`;
-        document.getElementById('dof-behind').textContent = `${this.formatDistance(data.dof_behind, unit)} (${behindPercentage}%)`;
-        document.getElementById('total-dof').textContent = this.formatDistance(data.total_dof, unit);
-        document.getElementById('hyperfocal-distance').textContent = this.formatDistance(data.hyperfocal_distance, unit);
-        document.getElementById('circle-of-confusion').textContent = `${data.coc.toFixed(3)} mm`;
+        if (!aperture || aperture < 0.5 || aperture > 64) {
+            return 'Aperture must be between f/0.5 and f/64';
+        }
         
-        // Show results section
-        this.resultsSection.style.display = 'block';
-        this.resultsSection.scrollIntoView({ behavior: 'smooth' });
+        if (!distance || distance < 0.01) {
+            return 'Distance must be greater than 0.01';
+        }
+        
+        if (!coc || coc < 0.001 || coc > 1) {
+            return 'Circle of confusion must be between 0.001mm and 1mm';
+        }
+        
+        return null; // No errors
+    }
+    
+    displayResults(data) {
+        try {
+            // Validate that we have the required data
+            if (!data || typeof data !== 'object') {
+                throw new Error('Invalid result data received');
+            }
+            
+            const requiredFields = ['near_distance', 'far_distance', 'dof_front', 'dof_behind', 'total_dof', 'hyperfocal_distance', 'coc'];
+            for (const field of requiredFields) {
+                if (data[field] === undefined || data[field] === null) {
+                    throw new Error(`Missing required field: ${field}`);
+                }
+            }
+            
+            const unit = data.unit || 'm';
+            
+            // Calculate percentages for DOF front and behind
+            const dofFrontValue = data.dof_front === 'infinity' || !isFinite(data.dof_front) ? 0 : data.dof_front;
+            const dofBehindValue = data.dof_behind === 'infinity' || !isFinite(data.dof_behind) ? 0 : data.dof_behind;
+            const totalDofValue = data.total_dof === 'infinity' || !isFinite(data.total_dof) ? dofFrontValue : data.total_dof;
+            
+            let frontPercentage = 0;
+            let behindPercentage = 0;
+            
+            if (totalDofValue > 0 && isFinite(totalDofValue)) {
+                frontPercentage = Math.round((dofFrontValue / totalDofValue) * 100);
+                behindPercentage = data.dof_behind === 'infinity' || !isFinite(data.dof_behind) ? 100 - frontPercentage : Math.round((dofBehindValue / totalDofValue) * 100);
+            }
+            
+            // Update result displays with error checking
+            const elements = [
+                {id: 'near-distance', value: this.formatDistance(data.near_distance, unit)},
+                {id: 'far-distance', value: this.formatDistance(data.far_distance, unit)},
+                {id: 'dof-front', value: `${this.formatDistance(data.dof_front, unit)} (${frontPercentage}%)`},
+                {id: 'dof-behind', value: `${this.formatDistance(data.dof_behind, unit)} (${behindPercentage}%)`},
+                {id: 'total-dof', value: this.formatDistance(data.total_dof, unit)},
+                {id: 'hyperfocal-distance', value: this.formatDistance(data.hyperfocal_distance, unit)},
+                {id: 'circle-of-confusion', value: `${data.coc.toFixed(3)} mm`}
+            ];
+            
+            for (const element of elements) {
+                const el = document.getElementById(element.id);
+                if (el) {
+                    el.textContent = element.value;
+                } else {
+                    console.warn(`Element not found: ${element.id}`);
+                }
+            }
+            
+            // Show results section
+            this.resultsSection.style.display = 'block';
+            this.resultsSection.scrollIntoView({ behavior: 'smooth' });
+            
+        } catch (error) {
+            console.error('Error displaying results:', error);
+            this.showError('Failed to display results. Please try again.');
+        }
     }
     
     createVisualization(data) {
-        const container = document.getElementById('dof-visualization');
-        container.innerHTML = '';
+        try {
+            const container = document.getElementById('dof-visualization');
+            if (!container) {
+                throw new Error('Visualization container not found');
+            }
+            
+            if (!data || typeof data !== 'object') {
+                throw new Error('Invalid visualization data');
+            }
+            
+            const requiredFields = ['subject_distance', 'near_distance', 'far_distance', 'dof_front', 'dof_behind', 'unit'];
+            for (const field of requiredFields) {
+                if (data[field] === undefined || data[field] === null) {
+                    throw new Error(`Missing required visualization field: ${field}`);
+                }
+            }
+            
+            container.innerHTML = '';
         
         const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svg.setAttribute('width', '100%');
@@ -243,7 +364,20 @@ class DOFCalculator {
             this.createSVGText(svg, farX - 10, baseY - 40, 'Far', '10px', '#27ae60');
         }
         
+        // Add ARIA description
+        const farText = (data.far_distance === 'infinity' || !isFinite(data.far_distance)) ? 'infinity' : `${data.far_distance.toFixed(2)} ${data.unit}`;
+        const description = `Depth of field diagram showing camera position, subject at ${data.subject_distance.toFixed(2)} ${data.unit}, near focus at ${data.near_distance.toFixed(2)} ${data.unit}, and far focus at ${farText}. The green highlighted area represents the depth of field zone.`;
+        container.setAttribute('aria-label', description);
+        
         container.appendChild(svg);
+        
+        } catch (error) {
+            console.error('Error creating visualization:', error);
+            const container = document.getElementById('dof-visualization');
+            if (container) {
+                container.innerHTML = '<p class="error-message">Unable to create visualization</p>';
+            }
+        }
     }
     
     createSVGRect(parent, x, y, width, height, fill, title = '') {
@@ -306,6 +440,20 @@ class DOFCalculator {
         if (input) {
             input.value = value;
             input.focus();
+        }
+    }
+    
+    handlePresetKeydown(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.handlePresetClick(e);
+        }
+    }
+    
+    handleThemeToggleKeydown(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.toggleDarkMode();
         }
     }
     
@@ -526,6 +674,8 @@ class DOFCalculator {
         const themeToggle = document.getElementById('theme-toggle');
         themeToggle.textContent = isDarkMode ? '☀️' : '🌙';
         themeToggle.setAttribute('title', isDarkMode ? 'Switch to light mode' : 'Switch to dark mode');
+        themeToggle.setAttribute('aria-label', isDarkMode ? 'Switch to light mode' : 'Switch to dark mode');
+        themeToggle.setAttribute('aria-pressed', isDarkMode.toString());
     }
 }
 

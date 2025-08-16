@@ -1,6 +1,26 @@
 <?php
 require_once 'config.php';
 
+class ConfigurationProvider {
+    /**
+     * Get unit conversions configuration
+     * @return array Unit conversion configuration
+     */
+    public static function getUnitConversions() {
+        global $unit_conversions;
+        return $unit_conversions;
+    }
+    
+    /**
+     * Get sensor presets configuration
+     * @return array Sensor presets configuration
+     */
+    public static function getSensorPresets() {
+        global $sensor_presets;
+        return $sensor_presets;
+    }
+}
+
 class DepthOfFieldCalculator {
     
     /**
@@ -64,10 +84,14 @@ class DepthOfFieldCalculator {
      * Convert distance values to specified units
      * @param array $dof_data DOF calculation results
      * @param string $unit_system 'metric' or 'imperial'
+     * @param array $unit_conversions Unit conversion configuration
      * @return array Converted DOF data
      */
-    public static function convertUnits($dof_data, $unit_system = 'metric') {
-        global $unit_conversions;
+    public static function convertUnits($dof_data, $unit_system = 'metric', $unit_conversions = null) {
+        if ($unit_conversions === null) {
+            // Fallback to global for backward compatibility
+            global $unit_conversions;
+        }
         
         if (!isset($unit_conversions[$unit_system])) {
             return $dof_data;

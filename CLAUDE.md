@@ -54,24 +54,64 @@ A comprehensive collection of professional photography calculators and tools for
 - **Architecture**: Multi-page application with shared components
 
 ### Project Structure
+
+The project follows a **distributed modular structure** where each calculator tool is self-contained with its own assets and logic. This approach was chosen after careful analysis for optimal maintainability, scalability, and development workflow.
+
 ```
 /tools-root/
 ├── index.php                    # Tools landing page
-├── shared/
+├── shared/                      # SHARED components only
 │   ├── header.php              # Consistent header template
 │   └── footer.php              # Consistent footer template
-├── assets/
-│   └── css/
-│       └── tools.css           # Shared styling (v0.0.2)
-├── dof-calculator/             # Depth of Field Calculator
+├── assets/                      # SHARED assets only
+│   ├── css/
+│   │   └── tools.css           # Global styling framework (v0.0.3)
+│   ├── js/
+│   │   └── common.js           # Shared utilities (if needed)
+│   └── images/
+│       └── shared/             # Shared icons, logos, etc.
+├── includes/                    # SHARED includes only
+│   ├── common-functions.php    # Shared utility functions
+│   └── validation.php          # Shared validation logic
+├── dof-calculator/             # DOF Calculator (self-contained)
 │   ├── index.php              # Calculator application
-│   ├── assets/                # Calculator-specific assets
-│   ├── includes/              # PHP calculation logic
+│   ├── assets/                # Tool-specific assets
+│   │   ├── css/style.css      # DOF-specific styling
+│   │   ├── js/app.js          # DOF-specific JavaScript
+│   │   └── images/            # DOF-specific images
+│   ├── includes/              # DOF-specific logic
+│   │   ├── calculations.php   # DOF calculation functions
+│   │   └── config.php         # DOF configuration
 │   └── .htaccess              # Security configuration
-├── print-size-calculator/      # Print Size Calculator (in development)
+├── print-size-calculator/      # Print Calculator (self-contained)
+│   ├── index.php              # Calculator application
+│   ├── assets/                # Tool-specific assets
+│   │   ├── css/print-calculator.css
+│   │   ├── js/print-calculator.js
+│   │   └── images/
+│   ├── includes/              # Print-specific logic
+│   │   ├── calculations.php   # Print calculation functions
+│   │   └── config.php         # Print configuration
+│   └── .htaccess              # Security configuration
 ├── .htaccess                   # Root security configuration
 └── .git/                       # Version control
 ```
+
+#### Structure Design Rationale
+
+**Distributed Modular Approach Benefits:**
+- **Clear Separation of Concerns**: Each tool is self-contained with its own assets and logic
+- **Modular Development**: Developers can work on individual tools without affecting others
+- **Easy Tool Management**: Adding, removing, or archiving tools is straightforward
+- **Independent Deployment**: Individual tools can be deployed or updated separately
+- **Reduced Naming Conflicts**: Tool-specific files can use similar names without collision
+- **Scalable Architecture**: New tools can be added without restructuring existing ones
+
+**File Organization Principles:**
+- **Root-level folders**: Contain only truly shared resources used by 3+ tools
+- **Tool-specific folders**: Maintain independence with their own assets/ and includes/
+- **Clear Boundaries**: Shared vs. tool-specific resources are easily identifiable
+- **Intuitive Navigation**: Developers can quickly locate tool-specific vs. shared files
 
 ### Shared Components
 - **Header/Footer**: Consistent BeyondPhotoTips.com branding
@@ -81,7 +121,7 @@ A comprehensive collection of professional photography calculators and tools for
 - **SEO**: Optimized meta descriptions and structured navigation
 
 ### Development Standards
-- **CSS Versioning**: Cache-busting with version numbers (current: v0.0.2)
+- **CSS Versioning**: Cache-busting with version numbers (current: v0.0.3)
 - **Responsive Design**: Mobile-first approach
 - **Accessibility**: WCAG guidelines compliance
 - **Performance**: Optimized loading and caching
@@ -115,10 +155,39 @@ A comprehensive collection of professional photography calculators and tools for
 
 ### Code Organization
 1. **Separation of Concerns**: Logic in PHP, presentation in HTML/CSS
-2. **Reusable Components**: Shared functions and styling
+2. **Reusable Components**: Shared functions and styling for input elements and overall page structure
 3. **Input Validation**: Both client and server-side
 4. **Error Handling**: Graceful failure with helpful messages
 5. **Performance**: Efficient calculations and minimal resources
+
+### File Organization Guidelines
+
+#### Shared vs. Tool-Specific Decision Matrix
+
+**Move to shared/ when:**
+- Used by 3+ tools
+- Core functionality (authentication, validation, utilities)
+- Brand assets (logos, common UI components)
+- Performance critical (can be cached globally)
+
+**Keep in tool-specific folders when:**
+- Unique to one tool
+- Tool-specific configurations
+- Domain-specific calculations
+- Tool-specific UI styling
+
+#### File Naming Conventions
+- **Shared assets**: Use generic names (`tools.css`, `common.js`)
+- **Tool-specific assets**: Use descriptive names that indicate the tool
+  - `/dof-calculator/assets/css/style.css` (clear context from path)
+  - `/dof-calculator/assets/js/app.js` (main application file)
+  - `/print-size-calculator/assets/css/print-calculator.css` (descriptive name)
+
+#### Development Workflow Benefits
+1. **New Tool Creation**: Simply copy an existing tool folder structure
+2. **Asset Management**: Clear path resolution (`../assets/css/tools.css` for shared, `assets/css/style.css` for local)
+3. **Code Maintenance**: Changes are scoped to specific tools unless intentionally shared
+4. **Team Collaboration**: Multiple developers can work on different tools without conflicts
 
 ### Feature Requirements
 - **Multiple Input Methods**: Sliders, dropdowns, text inputs
@@ -144,5 +213,5 @@ A comprehensive collection of professional photography calculators and tools for
 ---
 
 **Last Updated**: August 2025  
-**Current Version**: v0.0.2  
+**Current Version**: v0.0.3  
 **Active Development**: Print Size Calculator

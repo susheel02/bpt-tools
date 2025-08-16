@@ -1,0 +1,26 @@
+# Protect assets directory
+# Allow CSS, JS, images but prevent PHP execution
+
+# Prevent PHP execution in assets directory
+<Files "*.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Allow specific file types
+<FilesMatch "\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# Block other file types by default
+<FilesMatch "\.">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Re-allow the specific types we want
+<FilesMatch "\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>

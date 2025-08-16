@@ -1,0 +1,18 @@
+# Deny direct access to includes directory
+# Files should only be accessed through index.php
+
+Order Deny,Allow
+Deny from all
+
+# Block common file extensions that shouldn't be accessible
+<Files "*.php">
+    Deny from all
+</Files>
+
+<Files "*.inc">
+    Deny from all
+</Files>
+
+<Files "*.config">
+    Deny from all
+</Files>

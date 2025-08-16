@@ -33,26 +33,27 @@ include 'shared/header.php';
                 <a href="dof-calculator/" class="tool-link">Use DOF Calculator</a>
             </div>
 
-            <!-- Exposure Calculator - Coming Soon -->
-            <div class="tool-card coming-soon">
-                <h3>Exposure Calculator</h3>
-                <p>Calculate equivalent exposures and reciprocity relationships. Perfect for understanding exposure triangles and creative control.</p>
+            <!-- Print Size Calculator - Next -->
+            <div class="tool-card">
+                <h3>Print Size Calculator</h3>
+                <p>Calculate optimal print sizes and resolution requirements for different viewing distances and print qualities. Essential for photographers planning prints.</p>
                 <div class="features">
                     <ul>
-                        <li>Equivalent exposure calculations</li>
-                        <li>Shutter speed, aperture, and ISO relationships</li>
-                        <li>ND filter compensation</li>
-                        <li>Reciprocity failure calculations</li>
-                        <li>Creative exposure suggestions</li>
+                        <li>Print resolution calculations (DPI/PPI)</li>
+                        <li>Viewing distance optimization</li>
+                        <li>Image upscaling recommendations</li>
+                        <li>Maximum print size from image dimensions</li>
+                        <li>Paper size recommendations</li>
+                        <li>Print quality guidelines</li>
                     </ul>
                 </div>
-                <a href="#" class="tool-link">Coming Soon</a>
+                <a href="print-size-calculator/" class="tool-link">Use Print Calculator</a>
             </div>
 
-            <!-- Hyperfocal Distance Calculator - Coming Soon -->
+            <!-- Field of View Calculator - Coming Soon -->
             <div class="tool-card coming-soon">
                 <h3>Field of View Calculator</h3>
-                <p>Calculate field of view for different lens and sensor combinations. Plan your shots and understand lens coverage.</p>
+                <p>Calculate field of view for different lens and sensor combinations. Plan your shots and understand lens coverage for composition.</p>
                 <div class="features">
                     <ul>
                         <li>Horizontal and vertical field of view</li>
@@ -65,37 +66,6 @@ include 'shared/header.php';
                 <a href="#" class="tool-link">Coming Soon</a>
             </div>
 
-            <!-- Sun/Moon Calculator - Coming Soon -->
-            <div class="tool-card coming-soon">
-                <h3>Sun & Moon Calculator</h3>
-                <p>Calculate sunrise, sunset, moonrise, and moonset times. Plan your golden hour and blue hour photography sessions.</p>
-                <div class="features">
-                    <ul>
-                        <li>Sunrise and sunset times</li>
-                        <li>Golden hour and blue hour calculations</li>
-                        <li>Moon phase and position</li>
-                        <li>Location-based calculations</li>
-                        <li>Photography timeline planner</li>
-                    </ul>
-                </div>
-                <a href="#" class="tool-link">Coming Soon</a>
-            </div>
-
-            <!-- Print Size Calculator - Coming Soon -->
-            <div class="tool-card coming-soon">
-                <h3>Print Size Calculator</h3>
-                <p>Calculate optimal print sizes and resolution requirements for different viewing distances and print qualities.</p>
-                <div class="features">
-                    <ul>
-                        <li>Print resolution calculations</li>
-                        <li>Viewing distance optimization</li>
-                        <li>Image upscaling recommendations</li>
-                        <li>Print cost estimator</li>
-                        <li>Paper size recommendations</li>
-                    </ul>
-                </div>
-                <a href="#" class="tool-link">Coming Soon</a>
-            </div>
 
             <!-- Macro Calculator - Coming Soon -->
             <div class="tool-card coming-soon">

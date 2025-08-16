@@ -9,7 +9,7 @@
     <title><?= isset($page_title) ? $page_title : 'Photography Tools' ?> - BeyondPhotoTips.com</title>
     <meta name="description" content="<?= isset($page_description) ? $page_description : 'Professional photography calculators and tools for photographers' ?>">
     <meta name="theme-color" content="#667eea">
-    <link rel="stylesheet" href="<?= isset($css_path) ? $css_path : 'assets/css/tools.css' ?>">
+    <link rel="stylesheet" href="<?= isset($css_path) ? $css_path : 'assets/css/tools.css' ?>?v=0.0.2">
     
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZXPCE599N"></script>
@@ -28,7 +28,7 @@
             <div class="header-content">
                 <div class="site-branding">
                     <a href="https://www.beyondphototips.com/" class="site-logo-container" rel="home">
-                        <img src="https://www.beyondphototips.com/wp-content/uploads/2020/03/BPT-Intermediate-Logo.jpg" 
+                        <img src="https://www.beyondphototips.com/wp-content/uploads/2020/03/BPT-Intermediate-Logo.jpg.webp" 
                              class="default-logo" alt="Beyond Photo Tips Logo" width="300" height="78">
                     </a>
                     <p class="site-description">Photography for the Serious Amateur</p>

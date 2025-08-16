@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 // For calculator sub-page, we need custom variables
 $page_title = "Depth of Field Calculator";
 $page_description = "Professional depth of field calculator for photographers. Calculate DOF for any lens, sensor, and distance combination.";
-$css_path = "assets/css/style.css";
+$css_path = "assets/css/style.css?v=0.0.2";
 $base_url = "../";
 
 // Since we need to output before including header for AJAX, we'll handle header manually

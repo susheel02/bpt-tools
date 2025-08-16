@@ -112,6 +112,7 @@ $page_title = "Print Size Calculator";
 $page_description = "Calculate optimal print sizes and resolution requirements for different viewing distances and print qualities. Essential for photographers planning prints.";
 $css_path = "assets/css/print-calculator.css?v=0.0.2";
 $base_url = "../";
+$show_back_button = true;
 
 // Since we need to output before including header for AJAX, we'll handle header manually
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

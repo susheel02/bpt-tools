@@ -9,7 +9,10 @@
     <title><?= isset($page_title) ? $page_title : 'Photography Tools' ?> - BeyondPhotoTips.com</title>
     <meta name="description" content="<?= isset($page_description) ? $page_description : 'Professional photography calculators and tools for photographers' ?>">
     <meta name="theme-color" content="#667eea">
-    <link rel="stylesheet" href="<?= isset($css_path) ? $css_path : 'assets/css/tools.css' ?>?v=0.0.2">
+    <link rel="stylesheet" href="<?= isset($base_url) ? $base_url : '' ?>assets/css/tools.css?v=0.0.3">
+    <?php if (isset($css_path)): ?>
+    <link rel="stylesheet" href="<?= $css_path ?>">
+    <?php endif; ?>
     
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZXPCE599N"></script>
@@ -46,4 +49,17 @@
                 </nav>
             </div>
         </div>
+        
+        <?php if (isset($show_back_button) && $show_back_button): ?>
+        <div class="tools-container">
+            <div class="back-button-section">
+                <a href="<?= $base_url ?? '../' ?>" class="back-button">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Back to Tools
+                </a>
+            </div>
+        </div>
+        <?php endif; ?>
     </header>

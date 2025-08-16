@@ -5,7 +5,7 @@ require_once 'includes/config.php';
 // Page variables for DOF Calculator
 $page_title = "Depth of Field Calculator";
 $page_description = "Professional depth of field calculator for photographers. Calculate DOF for any lens, sensor, and distance combination with visual diagrams.";
-$css_path = "assets/css/style.css?v=0.0.3";
+$css_path = "assets/css/style.css?v=0.0.4";
 $base_url = "../";
 $show_back_button = true;
 $manifest_path = "manifest.json";

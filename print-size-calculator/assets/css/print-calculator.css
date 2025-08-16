@@ -7,7 +7,6 @@
     border-radius: 12px;
     padding: 0.5rem;
     margin-bottom: 2rem;
-    max-width: 500px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -69,7 +68,7 @@
 
 .input-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
 }
 
@@ -394,14 +393,50 @@ body.dark-mode .print-size-item {
     color: #e2e8f0;
 }
 
-/* Responsive Design */
+/* Desktop Optimization */
+@media (min-width: 1200px) {
+    .input-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .results-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .print-sizes-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+}
+
+/* Tablet Design */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .input-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+    
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .print-sizes-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+}
+
+/* Mobile Design */
 @media (max-width: 768px) {
     .input-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
     }
     
     .print-size-presets {
         grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+    
+    .results-grid {
+        grid-template-columns: 1fr;
     }
     
     .print-sizes-grid {
@@ -424,5 +459,9 @@ body.dark-mode .print-size-item {
     .tooltip .tooltiptext {
         width: 250px;
         margin-left: -125px;
+    }
+    
+    .input-section {
+        padding: 1.5rem;
     }
 }

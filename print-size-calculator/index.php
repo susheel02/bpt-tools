@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 // Page variables for Print Size Calculator
 $page_title = "Print Size Calculator";
 $page_description = "Calculate optimal print sizes and resolution requirements for different viewing distances and print qualities. Essential tool for photographers planning prints.";
-$css_path = "assets/css/print-calculator.css?v=0.0.3";
+$css_path = "assets/css/print-calculator.css?v=0.0.6";
 $base_url = "../";
 $show_back_button = true;
 

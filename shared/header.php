@@ -29,7 +29,7 @@ if (!class_exists('SchemaGenerator')) {
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
     
-    <link rel="stylesheet" href="<?= isset($base_url) ? $base_url : '' ?>assets/css/tools.css?v=0.0.3">
+    <link rel="stylesheet" href="<?= isset($base_url) ? $base_url : '' ?>assets/css/tools.css?v=0.0.4">
     <?php if (isset($css_path)): ?>
     <link rel="stylesheet" href="<?= $css_path ?>">
     <?php endif; ?>
@@ -64,31 +64,31 @@ if (!class_exists('SchemaGenerator')) {
             <div class="header-content">
                 <div class="site-branding">
                     <a href="https://www.beyondphototips.com/" class="site-logo-container" rel="home">
-                        <div class="logo-content">
-                            <img src="https://www.beyondphototips.com/wp-content/uploads/2020/03/BPT-Intermediate-Logo.jpg.webp" 
-                                 class="default-logo" alt="Beyond Photo Tips Logo" width="300" height="78" 
-                                 loading="lazy" decoding="async">
-                            <p class="site-description">Photography for the Serious Amateur</p>
-                        </div>
+                        <img src="https://www.beyondphototips.com/wp-content/uploads/2020/03/BPT-Intermediate-Logo.jpg.webp" 
+                             class="default-logo" alt="Beyond Photo Tips - Photography for the Serious Amateur" width="300" height="78" 
+                             loading="lazy" decoding="async">
+                        <p class="site-description">Photography for the Serious Amateur</p>
                     </a>
                 </div>
                 <nav class="header-menu">
                     <ul class="menu">
-                        <li><a href="https://www.beyondphototips.com/">Home</a></li>
-                        <li><a href="https://www.beyondphototips.com/get-better-at-photography/">Start Here</a></li>
-                        <li><a href="https://www.beyondphototips.com/category/equipment/">Equipment</a></li>
-                        <li><a href="https://www.beyondphototips.com/category/basics/">Basics</a></li>
-                        <li><a href="https://www.beyondphototips.com/category/software/">Software</a></li>
-                        <li class="current"><a href="<?= $base_url ?? '/' ?>">Tools</a></li>
-                        <li><a href="https://www.beyondphototips.com/about-beyond-phototips/">About Us</a></li>
+                        <li><a href="https://www.beyondphototips.com/">HOME</a></li>
+                        <li><a href="https://www.beyondphototips.com/get-better-at-photography/">START HERE</a></li>
+                        <li><a href="https://www.beyondphototips.com/category/equipment/">EQUIPMENT</a></li>
+                        <li><a href="https://www.beyondphototips.com/category/basics/">BASICS</a></li>
+                        <li><a href="https://www.beyondphototips.com/category/software/">SOFTWARE</a></li>
+                        <li class="current"><a href="<?= $base_url ?? '/' ?>">TOOLS</a></li>
+                        <li><a href="https://www.beyondphototips.com/about-beyond-phototips/">ABOUT US</a></li>
                     </ul>
                 </nav>
-                
-                <?php if (isset($sharing_data)): ?>
-                <!-- Social Sharing Buttons -->
-                <?= SocialMediaGenerator::generateSharingButtons($sharing_data) ?>
-                <?php endif; ?>
             </div>
+            
+            <?php if (isset($sharing_data)): ?>
+            <!-- Social Sharing Row -->
+            <div class="social-sharing-row">
+                <?= SocialMediaGenerator::generateSharingButtons($sharing_data) ?>
+            </div>
+            <?php endif; ?>
         </div>
         
         <?php if (isset($show_back_button) && $show_back_button): ?>

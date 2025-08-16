@@ -1,5 +1,9 @@
 <?php
 // Shared header for all tools
+// Include schema functions if not already included
+if (!class_exists('SchemaGenerator')) {
+    require_once(__DIR__ . '/../includes/schema-functions.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +13,16 @@
     <title><?= isset($page_title) ? $page_title : 'Photography Tools' ?> - BeyondPhotoTips.com</title>
     <meta name="description" content="<?= isset($page_description) ? $page_description : 'Professional photography calculators and tools for photographers' ?>">
     <meta name="theme-color" content="#667eea">
+    
+    <?php if (isset($social_data)): ?>
+    <!-- Social Media Meta Tags -->
+    <?= SocialMediaGenerator::generateSocialMetaTags($social_data) ?>
+    <?php endif; ?>
+    
+    <!-- Canonical URL -->
+    <?php if (isset($canonical_url)): ?>
+    <link rel="canonical" href="<?= htmlspecialchars($canonical_url) ?>">
+    <?php endif; ?>
     
     <!-- Resource hints for better performance -->
     <link rel="dns-prefetch" href="https://www.beyondphototips.com">
@@ -33,6 +47,16 @@
         gtag('js', new Date());
         gtag('config', 'G-ZZXPCE599N');
     </script>
+    
+    <?php if (isset($schema_data)): ?>
+    <!-- JSON-LD Schema Markup -->
+    <?= SchemaGenerator::generateCalculatorSchema($schema_data) ?>
+    <?php endif; ?>
+    
+    <?php if (isset($breadcrumb_data)): ?>
+    <!-- Breadcrumb Schema -->
+    <?= SchemaGenerator::generateBreadcrumbSchema($breadcrumb_data) ?>
+    <?php endif; ?>
 </head>
 <body>
     <header id="header" class="tools-header">
@@ -59,6 +83,11 @@
                         <li><a href="https://www.beyondphototips.com/about-beyond-phototips/">About Us</a></li>
                     </ul>
                 </nav>
+                
+                <?php if (isset($sharing_data)): ?>
+                <!-- Social Sharing Buttons -->
+                <?= SocialMediaGenerator::generateSharingButtons($sharing_data) ?>
+                <?php endif; ?>
             </div>
         </div>
         

@@ -2,13 +2,69 @@
 require_once 'includes/config.php';
 ?>
 <?php
-// For calculator sub-page, we need custom variables
+// Page variables for DOF Calculator
 $page_title = "Depth of Field Calculator";
-$page_description = "Professional depth of field calculator for photographers. Calculate DOF for any lens, sensor, and distance combination.";
+$page_description = "Professional depth of field calculator for photographers. Calculate DOF for any lens, sensor, and distance combination with visual diagrams.";
 $css_path = "assets/css/style.css?v=0.0.3";
 $base_url = "../";
 $show_back_button = true;
 $manifest_path = "manifest.json";
+
+// Current page URL for canonical and social sharing
+$current_url = "https://www.beyondphototips.com/tools/dof-calculator/";
+$canonical_url = $current_url;
+
+// Social media data
+$social_data = [
+    'title' => $page_title . ' - BeyondPhotoTips.com',
+    'description' => $page_description,
+    'url' => $current_url,
+    'image' => $current_url . 'assets/images/dof-calculator-social.jpg',
+    'image_alt' => 'Depth of Field Calculator - Professional photography tool'
+];
+
+// Social sharing data
+$sharing_data = [
+    'url' => $current_url,
+    'title' => $page_title,
+    'text' => 'Check out this professional depth of field calculator for photographers!'
+];
+
+// JSON-LD Schema data
+$schema_data = [
+    'name' => $page_title,
+    'description' => $page_description,
+    'url' => $current_url,
+    'calculator_type' => 'Depth of Field Calculator',
+    'features' => [
+        'Multiple sensor format support (Full Frame, APS-C, Micro 4/3, Medium Format)',
+        'Visual SVG diagram showing focus range',
+        'Hyperfocal distance calculations',
+        'Multiple units: meters, feet, centimeters, inches',
+        'Save/bookmark functionality',
+        'Dark/light mode toggle',
+        'Mobile-responsive design'
+    ],
+    'keywords' => [
+        'depth of field',
+        'DOF calculator',
+        'photography calculator',
+        'lens calculator',
+        'hyperfocal distance',
+        'circle of confusion',
+        'photography tools',
+        'camera sensor',
+        'aperture calculator'
+    ],
+    'screenshot' => $current_url . 'assets/images/dof-calculator-screenshot.jpg'
+];
+
+// Breadcrumb data
+$breadcrumb_data = [
+    ['name' => 'BeyondPhotoTips.com', 'url' => 'https://www.beyondphototips.com/'],
+    ['name' => 'Photography Tools', 'url' => 'https://www.beyondphototips.com/tools/'],
+    ['name' => 'Depth of Field Calculator', 'url' => $current_url]
+];
 
 // Include header for page display
 include '../shared/header.php';

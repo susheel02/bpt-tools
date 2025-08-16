@@ -1,7 +1,62 @@
 <?php
+// Main tools index page variables
 $page_title = "Photography Tools & Calculators";
-$page_description = "Professional photography calculators and tools for photographers. Calculate depth of field, exposure settings, and more.";
+$page_description = "Professional photography calculators and tools for photographers. Calculate depth of field, print sizes, and more with precision.";
 $base_url = "./";
+
+// Current page URL for canonical and social sharing
+$current_url = "https://www.beyondphototips.com/tools/";
+$canonical_url = $current_url;
+
+// Social media data
+$social_data = [
+    'title' => $page_title . ' - BeyondPhotoTips.com',
+    'description' => $page_description,
+    'url' => $current_url,
+    'image' => $current_url . 'assets/images/tools-social.jpg',
+    'image_alt' => 'Photography Tools & Calculators - Professional photography tools'
+];
+
+// Social sharing data
+$sharing_data = [
+    'url' => $current_url,
+    'title' => $page_title,
+    'text' => 'Check out these professional photography calculators and tools!'
+];
+
+// JSON-LD Schema data for the tools collection
+$schema_data = [
+    'name' => $page_title,
+    'description' => $page_description,
+    'url' => $current_url,
+    'calculator_type' => 'Photography Tools Suite',
+    'features' => [
+        'Depth of Field Calculator with visual diagrams',
+        'Print Size Calculator with quality recommendations',
+        'Multiple sensor format support',
+        'Mobile-responsive design',
+        'Dark/light mode toggle',
+        'Educational content and explanations'
+    ],
+    'keywords' => [
+        'photography tools',
+        'photography calculators',
+        'depth of field calculator',
+        'print size calculator',
+        'photography planning',
+        'camera tools',
+        'lens calculator',
+        'photo printing',
+        'photography education'
+    ],
+    'screenshot' => $current_url . 'assets/images/tools-screenshot.jpg'
+];
+
+// Breadcrumb data
+$breadcrumb_data = [
+    ['name' => 'BeyondPhotoTips.com', 'url' => 'https://www.beyondphototips.com/'],
+    ['name' => 'Photography Tools', 'url' => $current_url]
+];
 
 include 'shared/header.php';
 ?>

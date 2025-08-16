@@ -107,12 +107,70 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     }
 }
 
-// For calculator sub-page, we need custom variables
+// Page variables for Print Size Calculator
 $page_title = "Print Size Calculator";
-$page_description = "Calculate optimal print sizes and resolution requirements for different viewing distances and print qualities. Essential for photographers planning prints.";
+$page_description = "Calculate optimal print sizes and resolution requirements for different viewing distances and print qualities. Essential tool for photographers planning prints.";
 $css_path = "assets/css/print-calculator.css?v=0.0.3";
 $base_url = "../";
 $show_back_button = true;
+
+// Current page URL for canonical and social sharing
+$current_url = "https://www.beyondphototips.com/tools/print-size-calculator/";
+$canonical_url = $current_url;
+
+// Social media data
+$social_data = [
+    'title' => $page_title . ' - BeyondPhotoTips.com',
+    'description' => $page_description,
+    'url' => $current_url,
+    'image' => $current_url . 'assets/images/print-calculator-social.jpg',
+    'image_alt' => 'Print Size Calculator - Professional photography tool'
+];
+
+// Social sharing data
+$sharing_data = [
+    'url' => $current_url,
+    'title' => $page_title,
+    'text' => 'Check out this professional print size calculator for photographers!'
+];
+
+// JSON-LD Schema data
+$schema_data = [
+    'name' => $page_title,
+    'description' => $page_description,
+    'url' => $current_url,
+    'calculator_type' => 'Print Size Calculator',
+    'features' => [
+        'Calculate optimal print sizes from image resolution',
+        'Determine required megapixels for target print sizes',
+        'Print quality recommendations based on viewing distance',
+        'Support for different print media (photo paper, canvas, metal, fine art)',
+        'PPI/DPI education and guidance',
+        'Quality tiers: Gallery/Fine Art, Standard Photo, Casual, Large Format',
+        'Real-world scenario recommendations',
+        'Camera recommendation system'
+    ],
+    'keywords' => [
+        'print size calculator',
+        'print resolution',
+        'PPI calculator',
+        'DPI calculator',
+        'photography printing',
+        'print quality',
+        'viewing distance',
+        'photography tools',
+        'megapixel calculator',
+        'photo printing guide'
+    ],
+    'screenshot' => $current_url . 'assets/images/print-calculator-screenshot.jpg'
+];
+
+// Breadcrumb data
+$breadcrumb_data = [
+    ['name' => 'BeyondPhotoTips.com', 'url' => 'https://www.beyondphototips.com/'],
+    ['name' => 'Photography Tools', 'url' => 'https://www.beyondphototips.com/tools/'],
+    ['name' => 'Print Size Calculator', 'url' => $current_url]
+];
 
 include '../shared/header.php';
 ?>

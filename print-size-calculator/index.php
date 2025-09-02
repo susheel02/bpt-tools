@@ -181,6 +181,7 @@ include '../shared/header.php';
     </button>
 
     <main class="container">
+        <h1>Print Size Calculator</h1>
         <div class="calculator-wrapper">
             <!-- Mode Toggle -->
             <div class="mode-toggle">
@@ -314,6 +315,28 @@ include '../shared/header.php';
                 <div id="required-resolution-results" class="results-section" style="display: none;"></div>
             </div>
         </div>
+
+        <section class="how-to-use">
+            <h2>How to Use the Print Size Calculator</h2>
+            <p>This professional print calculator helps photographers determine optimal print sizes and required image resolution for high-quality prints. Choose your mode:</p>
+            
+            <h3>"What can I print?" Mode</h3>
+            <ol>
+                <li><strong>Enter image resolution:</strong> Input your photo's width and height in pixels</li>
+                <li><strong>Select print medium:</strong> Choose from photo paper, canvas, metal, or fine art paper</li>
+                <li><strong>View recommendations:</strong> See maximum print sizes for different quality levels</li>
+            </ol>
+            
+            <h3>"What resolution do I need?" Mode</h3>
+            <ol>
+                <li><strong>Enter desired print size:</strong> Input target print dimensions in inches or centimeters</li>
+                <li><strong>Select quality tier:</strong> Choose from gallery/fine art, standard photo, casual, or large format</li>
+                <li><strong>Select print medium:</strong> Choose your intended print material</li>
+                <li><strong>View requirements:</strong> See required pixel dimensions and megapixel count</li>
+            </ol>
+            
+            <p>Quality tiers represent different viewing distances and usage scenarios. Gallery/Fine Art is for close inspection, while Large Format is optimized for viewing from several feet away.</p>
+        </section>
     </main>
 
     <script src="assets/js/print-calculator.js?v=0.0.3"></script>

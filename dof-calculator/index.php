@@ -76,6 +76,7 @@ include '../shared/header.php';
     </button>
 
     <main class="container">
+        <h1>Depth of Field Calculator</h1>
         <div class="calculator-wrapper">
             <form id="dof-form" class="calculator-form">
                 <div class="form-grid">
@@ -236,6 +237,21 @@ include '../shared/header.php';
                 </div>
             </div>
         </div>
+
+        <section class="how-to-use">
+            <h2>How to Use the Depth of Field Calculator</h2>
+            <p>This professional DOF calculator helps photographers determine the acceptable focus range for any shooting scenario. Follow these steps:</p>
+            
+            <ol>
+                <li><strong>Select your camera sensor:</strong> Choose from Full Frame, APS-C, Micro 4/3, or Medium Format options</li>
+                <li><strong>Enter focal length:</strong> Input your lens focal length in millimeters</li>
+                <li><strong>Set aperture:</strong> Choose your f-stop value (wider apertures = shallower DOF)</li>
+                <li><strong>Enter focus distance:</strong> Distance to your subject in your preferred units</li>
+                <li><strong>View results:</strong> See near/far focus limits, total DOF, and hyperfocal distance</li>
+            </ol>
+            
+            <p>The visual diagram shows your depth of field range, helping you understand what will be in sharp focus. Use the hyperfocal distance for maximum DOF in landscape photography.</p>
+        </section>
     </main>
 
     <script src="assets/js/polyfills.js"></script>

@@ -3,6 +3,10 @@
 # Enable rewrite engine
 RewriteEngine On
 
+# Canonical URL redirect - Force www on production
+RewriteCond %{HTTP_HOST} ^beyondphototips\.com$ [NC]
+RewriteRule ^(.*)$ https://www.beyondphototips.com%{REQUEST_URI} [R=301,L]
+
 # Prevent access to sensitive files
 <Files ".htaccess">
     Require all denied

@@ -1,0 +1,514 @@
+/* Equipment Investment Calculator Specific Styles */
+/* Base styles are in shared tools.css */
+
+/* Calculator Form */
+.calculator-form {
+    position: relative;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.input-with-unit {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.currency-symbol {
+    position: absolute;
+    left: 1rem;
+    z-index: 10;
+    font-weight: 600;
+    color: #667eea;
+    pointer-events: none;
+}
+
+body.dark-mode .currency-symbol {
+    color: #a78bfa;
+}
+
+.input-with-unit input {
+    padding-left: 2.5rem;
+}
+
+/* Debt Warning */
+.debt-warning {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(238, 90, 36, 0.2);
+    box-shadow: 0 4px 12px rgba(238, 90, 36, 0.15);
+}
+
+.debt-warning h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.debt-warning p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Results Section */
+.results-section {
+    margin-top: 2rem;
+}
+
+/* Recommendation Badge */
+.recommendation {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    border: 2px solid;
+    position: relative;
+    overflow: hidden;
+}
+
+.recommendation.buy {
+    border-color: #10b981;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.05) 100%);
+}
+
+.recommendation.rent {
+    border-color: #f59e0b;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.05) 100%);
+}
+
+body.dark-mode .recommendation {
+    background: rgba(45, 55, 72, 0.95);
+}
+
+body.dark-mode .recommendation.buy {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.08) 100%);
+}
+
+body.dark-mode .recommendation.rent {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.08) 100%);
+}
+
+.recommendation-badge h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.recommendation.buy h3 {
+    color: #10b981;
+}
+
+.recommendation.rent h3 {
+    color: #f59e0b;
+}
+
+.recommendation-reason {
+    font-size: 1.1rem;
+    color: #4b5563;
+    margin: 0;
+    line-height: 1.6;
+}
+
+body.dark-mode .recommendation-reason {
+    color: #e2e8f0;
+}
+
+/* Financial Breakdown */
+.financial-breakdown,
+.cost-comparison,
+.break-even-analysis,
+.savings-summary {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .financial-breakdown,
+body.dark-mode .cost-comparison,
+body.dark-mode .break-even-analysis,
+body.dark-mode .savings-summary {
+    background: rgba(45, 55, 72, 0.9);
+    border-color: rgba(102, 126, 234, 0.3);
+}
+
+.financial-breakdown h4,
+.cost-comparison h4,
+.break-even-analysis h4,
+.savings-summary h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+body.dark-mode .financial-breakdown h4,
+body.dark-mode .cost-comparison h4,
+body.dark-mode .break-even-analysis h4,
+body.dark-mode .savings-summary h4 {
+    color: #e2e8f0;
+}
+
+.breakdown-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+body.dark-mode .breakdown-item {
+    border-bottom-color: rgba(102, 126, 234, 0.2);
+}
+
+.breakdown-item .label {
+    font-weight: 500;
+    color: #6b7280;
+}
+
+body.dark-mode .breakdown-item .label {
+    color: #9ca3af;
+}
+
+.breakdown-item .value {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+body.dark-mode .breakdown-item .value {
+    color: #e2e8f0;
+}
+
+/* Cost Comparison & 5-Year Analysis */
+.comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.five-year-analysis {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .five-year-analysis {
+    background: rgba(45, 55, 72, 0.9);
+    border-color: rgba(102, 126, 234, 0.3);
+}
+
+.five-year-analysis h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+body.dark-mode .five-year-analysis h4 {
+    color: #e2e8f0;
+}
+
+.five-year-savings {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(248, 249, 250, 0.8);
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+body.dark-mode .five-year-savings {
+    background: rgba(26, 32, 44, 0.8);
+    border-color: rgba(102, 126, 234, 0.2);
+}
+
+.five-year-savings p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #374151;
+}
+
+body.dark-mode .five-year-savings p {
+    color: #e2e8f0;
+}
+
+.cost-column {
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: rgba(248, 249, 250, 0.8);
+    border: 1px solid rgba(102, 126, 234, 0.1);
+    transition: all 0.3s ease;
+}
+
+.cost-column.recommended {
+    border-color: #10b981;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.05) 100%);
+    transform: scale(1.02);
+}
+
+body.dark-mode .cost-column {
+    background: rgba(26, 32, 44, 0.8);
+    border-color: rgba(102, 126, 234, 0.2);
+}
+
+body.dark-mode .cost-column.recommended {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.08) 100%);
+}
+
+.cost-column h5 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #374151;
+    font-size: 1.1rem;
+}
+
+body.dark-mode .cost-column h5 {
+    color: #e2e8f0;
+}
+
+.cost-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+    font-size: 0.9rem;
+}
+
+body.dark-mode .cost-item {
+    border-bottom-color: rgba(102, 126, 234, 0.2);
+}
+
+.cost-total {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid rgba(102, 126, 234, 0.3);
+    text-align: center;
+}
+
+/* Break-Even Analysis */
+.break-even-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.break-even-item {
+    padding: 1rem;
+    border-radius: 12px;
+    background: rgba(248, 249, 250, 0.8);
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.break-even-item.positive {
+    border-color: #10b981;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.05) 100%);
+}
+
+.break-even-item.negative {
+    border-color: #f59e0b;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.05) 100%);
+}
+
+body.dark-mode .break-even-item {
+    background: rgba(26, 32, 44, 0.8);
+    border-color: rgba(102, 126, 234, 0.2);
+}
+
+body.dark-mode .break-even-item.positive {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.08) 100%);
+}
+
+body.dark-mode .break-even-item.negative {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.08) 100%);
+}
+
+.break-even-item .metric {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+body.dark-mode .break-even-item .metric {
+    color: #e2e8f0;
+}
+
+.break-even-item .label {
+    font-size: 0.9rem;
+    color: #6b7280;
+    line-height: 1.4;
+}
+
+body.dark-mode .break-even-item .label {
+    color: #9ca3af;
+}
+
+/* Savings Summary */
+.savings-summary {
+    text-align: center;
+}
+
+.savings-amount {
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+}
+
+.savings-amount.positive {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.05) 100%);
+    border: 1px solid #10b981;
+}
+
+.savings-amount.negative {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.05) 100%);
+    border: 1px solid #ef4444;
+}
+
+body.dark-mode .savings-amount.positive {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.08) 100%);
+}
+
+body.dark-mode .savings-amount.negative {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.08) 100%);
+}
+
+.savings-amount .amount {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.savings-amount.positive .amount {
+    color: #10b981;
+}
+
+.savings-amount.negative .amount {
+    color: #ef4444;
+}
+
+.savings-amount .period {
+    display: inline-block;
+    font-size: 1.1rem;
+    color: #6b7280;
+    margin-right: 0.5rem;
+}
+
+body.dark-mode .savings-amount .period {
+    color: #9ca3af;
+}
+
+.savings-amount .method {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #4b5563;
+    margin-top: 0.5rem;
+}
+
+body.dark-mode .savings-amount .method {
+    color: #e2e8f0;
+}
+
+.monthly-savings {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+body.dark-mode .monthly-savings {
+    color: #9ca3af;
+}
+
+/* Error Messages */
+.error-message-block {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    border: 1px solid #f87171;
+    color: #dc2626;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+}
+
+body.dark-mode .error-message-block {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.1) 100%);
+    border-color: #ef4444;
+    color: #f87171;
+}
+
+.error-message {
+    color: #dc2626;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    display: block;
+}
+
+body.dark-mode .error-message {
+    color: #f87171;
+}
+
+input.error {
+    border-color: #ef4444 !important;
+    background-color: rgba(239, 68, 68, 0.05);
+}
+
+body.dark-mode input.error {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .comparison-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .break-even-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 1rem;
+    }
+    
+    .cost-column.recommended {
+        transform: none;
+    }
+    
+    .recommendation-badge h3 {
+        font-size: 1.5rem;
+    }
+    
+    .savings-amount .amount {
+        font-size: 2rem;
+    }
+    
+    .break-even-item .metric {
+        font-size: 1.5rem;
+    }
+}

@@ -33,6 +33,7 @@ $schema_data = [
     'features' => [
         'Depth of Field Calculator with visual diagrams',
         'Print Size Calculator with quality recommendations',
+        'Equipment Investment Calculator for rent vs buy decisions',
         'Multiple sensor format support',
         'Mobile-responsive design',
         'Dark/light mode toggle',
@@ -43,11 +44,15 @@ $schema_data = [
         'photography calculators',
         'depth of field calculator',
         'print size calculator',
+        'equipment investment calculator',
+        'rent vs buy calculator',
         'photography planning',
         'camera tools',
         'lens calculator',
         'photo printing',
-        'photography education'
+        'photography education',
+        'photography business',
+        'equipment financing'
     ],
     'screenshot' => $current_url . 'assets/images/tools-screenshot.jpg'
 ];
@@ -108,6 +113,25 @@ include 'shared/header.php';
                     </ul>
                 </div>
                 <a href="print-size-calculator/" class="tool-link">Use Print Calculator</a>
+            </div>
+
+            <!-- Equipment Investment Calculator -->
+            <div class="tool-card">
+                <h3>Equipment Investment Calculator</h3>
+                <p>Make smart financial decisions about photography equipment. Calculate whether to rent or buy gear based on usage patterns, depreciation, and hidden costs.</p>
+                <div class="features">
+                    <ul>
+                        <li>Rent vs buy financial analysis</li>
+                        <li>Multi-currency support (USD, EUR, GBP, CAD, AUD, JPY, INR)</li>
+                        <li>Depreciation and maintenance cost calculations</li>
+                        <li>Break-even analysis with usage patterns</li>
+                        <li>5-year total cost projections</li>
+                        <li>Professional financial guidance</li>
+                        <li>Debt warning and responsible advice</li>
+                        <li>Annual and per-usage cost comparisons</li>
+                    </ul>
+                </div>
+                <a href="equipment-investment-calculator/" class="tool-link">Use Investment Calculator</a>
             </div>
 
             <!-- Field of View Calculator - Coming Soon -->

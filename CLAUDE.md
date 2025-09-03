@@ -21,7 +21,7 @@ A comprehensive collection of professional photography calculators and tools for
 - Save/bookmark functionality
 - Dark/light mode toggle
 
-### 2. Print Size Calculator 🚧 IN DEVELOPMENT
+### 2. Print Size Calculator ✅ COMPLETE
 **Location**: `/print-size-calculator/`
 - Calculate optimal print sizes from image resolution
 - Determine required megapixels for target print sizes
@@ -31,14 +31,26 @@ A comprehensive collection of professional photography calculators and tools for
 - Quality tiers: Gallery/Fine Art, Standard Photo, Casual, Large Format
 - Real-world scenario recommendations
 
-### 3. Field of View Calculator 📋 PLANNED
+### 3. Equipment Investment Calculator ✅ COMPLETE
+**Location**: `/equipment-investment-calculator/`
+- Rent vs buy financial analysis for photography equipment
+- Multi-currency support (USD, EUR, GBP, CAD, AUD, JPY, INR)
+- Depreciation calculations (20% annually over 5-year standard)
+- Maintenance cost analysis (20% of purchase price over lifetime)
+- Break-even analysis with usage frequency patterns
+- 5-year total cost projections and comparisons
+- Professional financial guidance with debt warnings
+- Annual and per-usage cost breakdowns
+- Dark/light mode toggle and responsive design
+
+### 4. Field of View Calculator 📋 PLANNED
 **Location**: `/field-of-view-calculator/`
 - Calculate horizontal and vertical field of view
 - Lens and sensor combination planning
 - Crop factor comparisons
 - Subject framing calculations
 
-### 4. Macro Photography Calculator 📋 PLANNED  
+### 5. Macro Photography Calculator 📋 PLANNED  
 **Location**: `/macro-calculator/`
 - Magnification ratio calculations
 - Working distance optimization
@@ -92,6 +104,16 @@ The project follows a **distributed modular structure** where each calculator to
 │   ├── includes/              # Print-specific logic
 │   │   ├── calculations.php   # Print calculation functions
 │   │   └── config.php         # Print configuration
+│   └── .htaccess              # Security configuration
+├── equipment-investment-calculator/  # Investment Calculator (self-contained)
+│   ├── index.php              # Calculator application
+│   ├── assets/                # Tool-specific assets
+│   │   ├── css/style.css      # Investment-specific styling
+│   │   ├── js/app.js          # Investment-specific JavaScript
+│   │   └── images/            # Investment-specific images
+│   ├── includes/              # Investment-specific logic
+│   │   ├── calculations.php   # Investment calculation functions
+│   │   └── config.php         # Investment configuration
 │   └── .htaccess              # Security configuration
 ├── .htaccess                   # Root security configuration
 └── .git/                       # Version control
@@ -212,6 +234,6 @@ The project follows a **distributed modular structure** where each calculator to
 
 ---
 
-**Last Updated**: August 2025  
-**Current Version**: v0.0.3  
-**Active Development**: Print Size Calculator
+**Last Updated**: September 2025  
+**Current Version**: v0.0.4  
+**Active Development**: Field of View Calculator
